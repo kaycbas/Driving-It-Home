@@ -58,13 +58,14 @@ public class BlobDetector {
 			}
 		}
 
+
 		//Color roadMarkingColor = knownObjectsInfo.getKnownObjects().
 
 		for(int row=0; row<dim; row++) {
 			for (int col=0; col<dim; col++) {
 
 				MultiMapCell currentCell = map.getCell(row, col);
-				if (currentCell.isOccupied() || currentCell.getColor().equals(roadMarkingColor)) {
+				if (currentCell.isOccupied() || checkRange(currentCell.getColor(), roadMarkingColor)) {
 					//if (currentCell.getColor().equals(roadMarkingColor)) {System.out.println("match");}
 					if (col!=0) {
 						if (map.getCell(row, col-1).isGrouped()) {
@@ -174,5 +175,21 @@ public class BlobDetector {
 				isCollideable, isCompleteX, isCompleteY);
 
 		return blob;
+	}
+
+	private boolean checkRange(Color c1, Color c2) {
+		float c1_r = c1.r;
+		float c1_g = c1.g;
+		float c1_b = c1.b;
+		float c2_r = c2.r;
+		float c2_g = c2.g;
+		float c2_b = c2.b;
+		float diff = Math.abs(c1_r-c2_r) + Math.abs(c1_g-c2_g) + Math.abs(c1_b-c2_b);
+
+		if(diff <= 0.3){
+			return true;
+		}
+
+		return false;
 	}
 }

@@ -20,7 +20,7 @@ import com.unimelb.swen30006.partc.roads.Road;
 
 public class Group24Planner implements IPlanning {
 
-	private static final String FILE = "test_course.xml";
+	private static final String FILE = "C:\\Users\\Kevin\\Documents\\Professional\\Academic\\UoM\\SWD\\Part C - Driving It Home\\SWEN30006 Part C - Driving It Home\\desktop\\bin\\test_course.xml";
 	private static final float MAX_DIST = 50f;
 	public static final float BRAKE_DIST = 25;
 	private Road[] roads;
@@ -48,7 +48,7 @@ public class Group24Planner implements IPlanning {
 		target = new Point2D.Double();
 		tLHandler = new TrafficLightHandler(car);
 		sHandler = new SignHandler(car);
-		
+		//planRoute(new Point2D.Double(180, 140));
 	}
 
 	@Override
@@ -314,13 +314,7 @@ public class Group24Planner implements IPlanning {
 		return null;
 	}
 
-	/**
-	 * Prune all perception response objects that are behind the car
-	 * 
-	 * @param pr
-	 *            List of perception response
-	 * @return An array list of perception response that is infront of car
-	 */
+
 	private ArrayList<PerceptionResponse> pruneBehind(
 			PerceptionResponse[] prList) {
 		// First make an empty list
@@ -384,6 +378,11 @@ public class Group24Planner implements IPlanning {
 		for (Intersection aIntersection : intersections) {
 			if (aIntersection.roads.containsValue(path)
 					&& !aIntersection.equals(currentIntersection)) {
+				return aIntersection;
+			}
+		}
+		for (Intersection aIntersection : intersections) {
+			if (aIntersection.roads.containsValue(path)) {
 				return aIntersection;
 			}
 		}

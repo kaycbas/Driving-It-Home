@@ -8,6 +8,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.unimelb.swen30006.partc.ai.interfaces.IPerception;
+import com.unimelb.swen30006.partc.ai.interfaces.IPlanning;
+import com.unimelb.swen30006.partc.ai.interfaces.ISensing;
+import com.unimelb.swen30006.partc.controllers.AIController;
 import com.unimelb.swen30006.partc.controllers.Controller;
 import com.unimelb.swen30006.partc.controllers.KeyboardController;
 import com.unimelb.swen30006.partc.core.infrastructure.Light;
@@ -17,6 +21,10 @@ import com.unimelb.swen30006.partc.roads.Intersection;
 import com.unimelb.swen30006.partc.roads.Road;
 import com.varunpant.quadtree.Point;
 import com.varunpant.quadtree.QuadTree;
+import group24.planning.Group24Planner;
+import group32.planning.Group32Planning;
+import group60.perception.PerceptionController;
+import group70.sensing.G70Sensor;
 
 public class World implements ISteppable {
 
@@ -60,7 +68,7 @@ public class World implements ISteppable {
 	 */
 	public World() {
 		// Create a map reader
-		MapReader reader = new MapReader("test_course.xml");
+		MapReader reader = new MapReader("C:\\Users\\Kevin\\Documents\\Professional\\Academic\\UoM\\SWD\\Part C - Driving It Home\\SWEN30006 Part C - Driving It Home\\desktop\\bin\\test_course.xml");
 
 		// Retrieve the values from the map reader
 		this.roads = reader.processRoads();
@@ -74,10 +82,15 @@ public class World implements ISteppable {
 		buildQuadTree();
 
 		// Controllers and cars
-		this.controllers = new Controller[1];
+		this.controllers = new Controller[2];
 		this.cars = new Car[1];
 		this.cars[0] = new Car(new Point2D.Double(80,140), 6, 10, Color.CORAL, 25f, 50f, 6f );
 		this.controllers[0] = new KeyboardController(cars[0]);
+		ISensing sensor = new G70Sensor(this, cars[0]);
+		IPerception perceptor = new PerceptionController(cars[0], 0);
+		IPlanning planner = new Group24Planner(cars[0]);
+		this.controllers[1] = new AIController(cars[0], sensor, planner, perceptor);
+
 
 		// Remaning variables
 		this.worldTime = MIDDAY;

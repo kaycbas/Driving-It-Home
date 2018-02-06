@@ -92,6 +92,7 @@ public class Classifier {
 				//return cos;
 			}
 		}
+		System.out.println("num cObjs: " + cos.size());
 		return cos;
 	}
 

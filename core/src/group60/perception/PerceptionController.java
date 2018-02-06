@@ -97,6 +97,7 @@ public class PerceptionController implements IPerception {
 
 	public ArrayList<Blob> detectBlobs(MultiMap map){
 		ArrayList<Blob> detectedBlobs = detector.generateBlobs(map);
+		System.out.println("num detected blobs: " + detectedBlobs.size());
 		return detectedBlobs;
 	}
 
