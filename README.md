@@ -1,6 +1,8 @@
 # Driving-It-Home
 A simulation with graphics of a city with self-driving cars and randomly generated destinations. Sensory and decision controllers are used by the cars to make real time decisions to reach their destinations safely.
 
+[Overview PDF](https://github.com/kaycbas/Driving-It-Home/blob/master/assets/Driving-It-Home-Overview.pdf)
+
 ## The Self-Driving Car Platform
 
 ![System Digram](https://github.com/kaycbas/Driving-It-Home/blob/master/assets/class-diagram.png?raw=true)
